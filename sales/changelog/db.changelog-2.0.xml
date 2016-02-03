@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog
+  xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+
+    <changeSet id="changelog-2.0" author="sharad">
+
+        <addColumn tableName="sales_fact">
+            <column name="sales_profit" type="numeric"/>
+        </addColumn>
+
+        <dropColumn columnName="mobile_no"            
+                tableName="customers" />
+
+        <renameColumn tableName="customers" oldColumnName="account_num" 
+          newColumnName="account_number" columnDataType="text" />
+              
+
+        <addForeignKeyConstraint baseColumnNames="product_id"
+                baseTableName="sales_fact"
+                constraintName="sales_fact_product_id_fkey"
+                deferrable="true"
+                initiallyDeferred="true"
+                onDelete="CASCADE"
+                onUpdate="RESTRICT"
+                referencedColumnNames="product_id"
+                referencedTableName="products"/>
+
+        <addForeignKeyConstraint baseColumnNames="time_id"
+                baseTableName="sales_fact"
+                constraintName="sales_fact_time_id_fkey"
+                deferrable="true"
+                initiallyDeferred="true"
+                onDelete="CASCADE"
+                onUpdate="RESTRICT"
+                referencedColumnNames="time_id"
+                referencedTableName="time_by_day"/>
+
+        <addForeignKeyConstraint baseColumnNames="customer_id"
+                baseTableName="sales_fact"
+                constraintName="sales_fact_customer_id_fkey"
+                deferrable="true"
+                initiallyDeferred="true"
+                onDelete="CASCADE"
+                onUpdate="RESTRICT"
+                referencedColumnNames="customer_id"
+                referencedTableName="customers"/>
+
+        <addForeignKeyConstraint baseColumnNames="promotion_id"
+                baseTableName="sales_fact"
+                constraintName="sales_fact_promotion_id_fkey"
+                deferrable="true"
+                initiallyDeferred="true"
+                onDelete="CASCADE"
+                onUpdate="RESTRICT"
+                referencedColumnNames="promotion_id"
+                referencedTableName="promotion"/>
+
+        <addForeignKeyConstraint baseColumnNames="store_id"
+                baseTableName="sales_fact"
+                constraintName="sales_fact_store_id_fkey"
+                deferrable="true"
+                initiallyDeferred="true"
+                onDelete="CASCADE"
+                onUpdate="RESTRICT"
+                referencedColumnNames="store_id"
+                referencedTableName="store"/>
+                                                
+
+                                                
+
+        <addUniqueConstraint 
+                columnNames="fname,lname"
+                constraintName="cust_fname_lname"
+                deferrable="true"
+                disabled="true"
+                initiallyDeferred="true"
+                schemaName="public"
+                tableName="customers" />
+
+        <addUniqueConstraint 
+                columnNames="sku"
+                constraintName="product_sku"
+                deferrable="true"
+                disabled="true"
+                initiallyDeferred="true"
+                schemaName="public"
+                tableName="products" />
+
+        <createIndex 
+                indexName="idx_products_brand"
+                schemaName="public"
+                tableName="products"            
+                unique="true">
+            <column name="brand" type="text"/>
+        </createIndex>
+
+
+        <rollback>
+            
+            <dropColumn columnName="sales_profit"            
+                    tableName="sales_fact" />
+
+            <addColumn tableName="customers">
+                <column name="mobile_no" type="int"/>
+            </addColumn> 
+
+            <renameColumn tableName="customers" oldColumnName="account_number" 
+              newColumnName="account_num" columnDataType="text" />              
+
+            <dropForeignKeyConstraint baseTableName="sales_fact" constraintName="sales_fact_product_id_fkey"/><dropForeignKeyConstraint baseTableName="sales_fact" constraintName="sales_fact_time_id_fkey"/>
+
+            <dropForeignKeyConstraint baseTableName="sales_fact" constraintName="sales_fact_customer_id_fkey"/>
+
+            <dropForeignKeyConstraint baseTableName="sales_fact" constraintName="sales_fact_promotion_id_fkey"/>
+
+            <dropForeignKeyConstraint baseTableName="sales_fact" constraintName="sales_fact_store_id_fkey"/>
+
+            <dropUniqueConstraint constraintName="cust_fname_lname" tableName="customers" uniqueColumns="fname,lname"/> 
+
+            <dropIndex indexName="idx_products_brand" tableName="idx_products_brand"/>                
+
+        </rollback>                                        
+
+                
+    </changeSet>   
+
+</databaseChangeLog>
+
+

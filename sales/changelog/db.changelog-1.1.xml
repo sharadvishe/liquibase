@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog
+  xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+    <changeSet id="changelog-1.1" author="sharad">
+        
+        <createTable tableName="products">
+            <column name="product_id" type="int" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="product_class_id" type="int" />
+            <column name="brand" type="text" />
+            <column name="product_name" type="text" />
+            <column name="SKU" type="text" />
+        </createTable>
+
+        <createTable tableName="customers">
+            <column name="customer_id" type="int" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="account_num" type="int" />
+            <column name="lname" type="text" />
+            <column name="fname" type="text" />
+            <column name="address" type="text" />
+            <column name="mobile_no" type="int" />
+        </createTable>        
+
+        <createTable tableName="promotion">
+            <column name="promotion_id" type="int" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="promotion_name" type="varchar(50)" />
+            <column name="start_date" type="date" />
+            <column name="end_date" type="date" />
+        </createTable>  
+
+        <createTable tableName="time_by_day">
+            <column name="time_id" type="int" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="the_date" type="date" />
+            <column name="the_day" type="varchar(20)" />
+            <column name="the_month" type="varchar(20)" />
+            <column name="the_year" type="int" />
+        </createTable>   
+
+        <createTable tableName="store">
+            <column name="store_id" type="int" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="store_type" type="varchar(20)" />
+            <column name="region_id" type="int" />
+            <column name="store_name" type="text" />
+            <column name="store_number" type="int" />
+        </createTable>  
+
+        <createTable tableName="sales_fact">
+            <column name="product_id" type="int" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="time_id" type="int" />
+            <column name="customer_id" type="int" />
+            <column name="promotion_id" type="int" />
+            <column name="store_id" type="int" />
+            <column name="store_sales" type="numeric" />
+            <column name="store_cost" type="numeric" />
+            <column name="unit_sales" type="numeric" />
+        </createTable>                      
+
+        <rollback>
+
+            <dropTable cascadeConstraints="true" tableName="products"/>
+            <dropTable cascadeConstraints="true" tableName="customers"/>
+            <dropTable cascadeConstraints="true" tableName="promotion"/>
+            <dropTable cascadeConstraints="true" tableName="store"/>
+            <dropTable cascadeConstraints="true" tableName="time_by_day"/>
+            <dropTable cascadeConstraints="true" tableName="sales_fact"/>
+
+        </rollback>   
+
+    </changeSet>  
+</databaseChangeLog>
+
+
