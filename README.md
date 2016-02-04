@@ -20,7 +20,8 @@
 
 #### Project Structure ####
 
-        sales
+
+        database/
         ├── changelog
         |   ├── db.changelog-master.xml
         |   └── db.changelog-1.0.xml
@@ -29,12 +30,12 @@
         |   └── db.changelog-2.0.xml
         |
         ├── scripts
-        |       |__handle_exception.sql|    
+        |       |__handle_exception.sql  
         ├── lib
         |   ├── postgresql.jar
-        |   └── mysql.jar
-        |      
+        |   └── mysql.jar     
         └── README.md
+
 
 Project hierarchy contains following folders with their significance:  
 
@@ -42,8 +43,9 @@ Project hierarchy contains following folders with their significance:
         This folder maintains all database schema versioning with respective incremental changes.
         `db.changelog-master.xml` includes all changelog versions.
 
-  2. functions:  
-        This folder has all stored procedures SQL files which are included in respective changelog version.
+  2. scripts:  
+        Sometimes Liquibase can not handle complex SQL scripts related to specific database.Those SQL scripts are loaded in respective changelog version.
+        Example `Stored Procedure,Views,Triggers`.
 
   3. lib:  
         This folder has database drivers which required to maintain JDBC connections at the time of schema migration.
@@ -58,8 +60,8 @@ Please follow the [Liquibase commandline help](http://www.liquibase.org/document
 1. Clone this [repositoty](https://github.com/sharadvishe/liquibase.git) into your workspace.
   `git clone https://github.com/sharadvishe/liquibase.git`
 
-2. Go to folder liquibase/sales.
-    `cd liquibase/sales`
+2. Go to folder liquibase/database.
+    `cd liquibase/database`
 
 3. Execute below command to migrate/rollback changelog versions which are in the folder `changelog`:
     1. To migrate all changelog versions,run below command:  
@@ -71,7 +73,7 @@ Please follow the [Liquibase commandline help](http://www.liquibase.org/document
     3. To rollback last number of changelog versions,run below command:  
         `$liquibase --driver=org.postgresql.Driver --classpath=lib/postgresql.jar --changeLogFile=changelog/db.changelog-master.xml --url="jdbc:postgresql://[host]:[port]/[database]" --username=[username] --password=[password] rollbackCount number`
 
-    **Where,**
+    **Where,**  
         **host**    : PostgreSQL server ip address  
         **port**    : PostgreSQL server port  
         **username**: PostgreSQL server username  
