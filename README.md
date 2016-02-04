@@ -28,13 +28,12 @@
         |   └── db.changelog-1.2.xml
         |   └── db.changelog-2.0.xml
         |
-        ├── functions
+        ├── scripts
         |       |__handle_exception.sql|    
         ├── lib
         |   ├── postgresql.jar
         |   └── mysql.jar
-        ├── sql
-        |
+        |      
         └── README.md
 
 Project hierarchy contains following folders with their significance:  
@@ -49,8 +48,6 @@ Project hierarchy contains following folders with their significance:
   3. lib:  
         This folder has database drivers which required to maintain JDBC connections at the time of schema migration.
 
-  4. sql:  
-        This folder has `sql` files which we can include in changelogs to load data into database or to change complex schema which are not supported by liquibase.
                           
 #### Liquibase commands ####
 
@@ -74,7 +71,7 @@ Please follow the [Liquibase commandline help](http://www.liquibase.org/document
     3. To rollback last number of changelog versions,run below command:  
         `$liquibase --driver=org.postgresql.Driver --classpath=lib/postgresql.jar --changeLogFile=changelog/db.changelog-master.xml --url="jdbc:postgresql://[host]:[port]/[database]" --username=[username] --password=[password] rollbackCount number`
 
-    Where,  
+    **Where,**
         **host**    : PostgreSQL server ip address  
         **port**    : PostgreSQL server port  
         **username**: PostgreSQL server username  

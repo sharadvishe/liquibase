@@ -10,7 +10,7 @@
     <changeSet id="changelog-1.2" author="sharad">
 
         <createProcedure 
-                path="../functions/ETL/handle_exception.sql"            
+                path="../scripts/handle_exception.sql"            
                 relativeToChangelogFile="true">            
         </createProcedure>
 
