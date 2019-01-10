@@ -1,24 +1,28 @@
-### Liquibase ###
+# Liquibase
 
-#### Liquibase installation and configuration ####
+## Liquibase installation and configuration
 
 1. Download liquibase from [Liquibase download page](https://github.com/liquibase/liquibase/releases/download/liquibase-parent-3.4.2/liquibase-3.4.2-bin.zip) .
 
 2. Extract `liquibase-3.4.2-bin.zip` into your working directory.
 
 3. Add full path of `your_working_dir/liquibase-3.4.2-bin` path to PATH environment variable.  
-  
-  In Ubuntu 14.04,include liquibase path to PATH environment variable as follows:
-    $vim ~/.bashrc
-    open and add `export PATH="your_working_dir/liquibase-3.4.2-bin:$PATH"` at the end of file and save this file with pressing :wq and ENTER.
 
-    $source ~/.bashrc
+ **In Linux systems**, include liquibase path to PATH environment variable as follows:
 
-  In Windows systems,add `your_working_dir/liquibase-3.4.2-bin` to the system path.
+  ```$ vim ~/.bashrc```
 
-4. Run `liquibase` at your terminal or command promt.If it outputs something help command then you have successfully configured liquibase.
+   open and add `export PATH="your_working_dir/liquibase-3.4.2-bin:$PATH"` at the end of file, save this file by pressing <kbd>ESCAPE</kbd><kbd>:</kbd><kbd>x</kbd><kbd>ENTER</kbd>.
 
-#### Project Structure ####
+   Reload the bashrc file:
+
+    $ source ~/.bashrc
+
+  **In Windows systems**, add `your_working_dir/liquibase-3.4.2-bin` to the system path.
+
+4. Run `liquibase --version` at your terminal or command prompt. If it outputs something the version then you have successfully configured liquibase.
+
+### Project Structure
 
 
         database/
@@ -50,12 +54,12 @@ Project hierarchy contains following folders with their significance:
   3. lib:  
         This folder has database drivers which required to maintain JDBC connections at the time of schema migration.
 
-                          
-#### Liquibase commands ####
+
+### Liquibase commands
 
 Please follow the [Liquibase commandline help](http://www.liquibase.org/documentation/command_line.html).
 
-#### PostgreSQL schema migration ####
+## PostgreSQL schema migration
 
 1. Clone this [repositoty](https://github.com/sharadvishe/liquibase.git) into your workspace.
   `git clone https://github.com/sharadvishe/liquibase.git`
@@ -64,14 +68,14 @@ Please follow the [Liquibase commandline help](http://www.liquibase.org/document
     `cd liquibase/database`
 
 3. Execute below command to migrate/rollback changelog versions which are in the folder `changelog`:
-    1. To migrate all changelog versions,run below command:  
-        `$liquibase --driver=org.postgresql.Driver --classpath=lib/postgresql.jar --changeLogFile=changelog/db.changelog-master.xml --url="jdbc:postgresql://[host]:[port]/[database]" --username=[username] --password=[password] migrate`
+    1. To migrate all changelog versions, run below command:  
+        `$ liquibase --driver=org.postgresql.Driver --classpath=lib/postgresql.jar --changeLogFile=changelog/db.changelog-master.xml --url="jdbc:postgresql://[host]:[port]/[database]" --username=[username] --password=[password] migrate`
 
-    2. To migrate number of changelog versions,run below command:  
-        `$liquibase --driver=org.postgresql.Driver --classpath=lib/postgresql.jar --changeLogFile=changelog/db.changelog-master.xml --url="jdbc:postgresql://[host]:[port]/[database]" --username=[username] --password=[password] updateCount          number`
+    2. To migrate number of changelog versions, run below command:  
+        `$ liquibase --driver=org.postgresql.Driver --classpath=lib/postgresql.jar --changeLogFile=changelog/db.changelog-master.xml --url="jdbc:postgresql://[host]:[port]/[database]" --username=[username] --password=[password] updateCount          number`
 
-    3. To rollback last number of changelog versions,run below command:  
-        `$liquibase --driver=org.postgresql.Driver --classpath=lib/postgresql.jar --changeLogFile=changelog/db.changelog-master.xml --url="jdbc:postgresql://[host]:[port]/[database]" --username=[username] --password=[password] rollbackCount number`
+    3. To rollback last number of changelog versions, run below command:  
+        `$ liquibase --driver=org.postgresql.Driver --classpath=lib/postgresql.jar --changeLogFile=changelog/db.changelog-master.xml --url="jdbc:postgresql://[host]:[port]/[database]" --username=[username] --password=[password] rollbackCount number`
 
     **Where,**  
         **host**    : PostgreSQL server ip address  
